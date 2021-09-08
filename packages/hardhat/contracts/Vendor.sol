@@ -58,6 +58,9 @@ contract Vendor is Ownable {
         // Calculate eth to transfer.
         uint256 amountEth = _tokens / tokensPerEth;
 
+        // check if we have enough tokens (we should, but "things happen").
+        require(amountEth <= address(this).balance, "RDT-Vendor: We dont have enough ETH for your tokens. Please, contact an Admin");
+
         // Transfer the eth.
         (bool success, ) = msg.sender.call{value: amountEth}("");
         require(success, "RDT-Vendor: CRITICAL: sellTokens transfer failed.");
