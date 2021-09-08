@@ -1,5 +1,7 @@
 # 🏗 scaffold-eth | 🏰 BuidlGuidl
 This Branch has some extra features that are not mentioned in the original challenge, allowing users to also sell back their tokens, or for the deployer to withdraw tokens or eth freely.
+
+App available at <a href="https://rdtvendor.surge.sh" target="_blank">rdtvendor.surge.sh<a>
 ## 🚩 Challenge 2: Token Vendor
 
 > 🏵 Create `YourToken.sol` smart contract that inherits the **ERC20** token standard from OpenZeppelin. Set your token to `_mint()` **1000** (\* 10 \*\* 18) tokens to the `msg.sender`. Then create a `Vendor.sol` contract that sells your token using a payable `buyTokens()` function.
