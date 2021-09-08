@@ -105,7 +105,7 @@ function App(props) {
   if (yourTokenBalance) {
     transferDisplay = (
 
-      <div className="card bg-dark text-white p-2">
+      <div className="card bg-dark text-white p-2 border-primary">
         <div className="mx-auto">
           <div>Your current RDE Balance</div>
           <Balance
@@ -151,13 +151,11 @@ function App(props) {
       {networkDisplay}
 
       <BrowserRouter>
-
         <Switch>
-
           <Route exact path="/">
 
-            <div className="d-flex flex-wrap flex-row justify-content-center m-3">
-              <div className="card bg-dark text-white p-3 mx-auto m-2">
+            <div className="d-flex flex-wrap flex-row justify-content-center m-5">
+              <div className="card bg-dark text-white p-3 mx-auto m-2 border border-warning">
                 <div style={{ padding: 8 }} className="mx-auto">
                   <div>Vendor ETH Balance:</div>
                   <Balance
@@ -183,7 +181,7 @@ function App(props) {
                   </div>
                 </div>
                 <div className="card-footer">
-                  <Button type={"primary"} loading={buying} onClick={async () => {
+                  <Button type={"primary"} disabled={!web3Modal.cachedProvider ? true : false} loading={buying} onClick={async () => {
                     setBuying(true)
                     await tx(writeContracts.Vendor.buyTokens({ value: ethCostToPurchaseTokens }))
                     setBuying(false)
@@ -195,7 +193,7 @@ function App(props) {
 
               {transferDisplay}
 
-              <div className="card bg-dark text-white p-3 mx-auto m-2">
+              <div className="card bg-dark text-white p-3 mx-auto m-2 border-warning">
                 <div style={{ padding: 8, }} className="mx-auto">
                   <div>Vendor Token Balance:</div>
                   <Balance
@@ -224,7 +222,7 @@ function App(props) {
                   {
                     (allowance && !allowance.isZero()) ?
 
-                      <Button type={"primary"} loading={selling} onClick={async () => {
+                      <Button type={"primary"} disabled={!web3Modal.cachedProvider ? true : false} loading={selling} onClick={async () => {
                         setSelling(true)
                         await tx(writeContracts.Vendor.sellTokens(parseEther(tokenSellAmount)))
                         setSelling(false)
@@ -234,7 +232,7 @@ function App(props) {
 
                       :
 
-                      <Button type={"primary"} loading={approving} onClick={async () => {
+                      <Button type={"primary"} disabled={!web3Modal.cachedProvider ? true : false} loading={approving} onClick={async () => {
                         setApproving(true)
                         await tx(writeContracts.Token.approve(vendorAddress, parseEther((tokenSellAmount * tokensPerEth).toString())))
                         setApproving(false)
@@ -244,7 +242,6 @@ function App(props) {
                   }
                 </div>
               </div>
-
             </div>
 
             <div className="d-flex flex-wrap flex-row justify-content-around m-3">
@@ -301,7 +298,7 @@ function App(props) {
                 />
               </div>
             </div>
-            <Link onClick={() => { setRoute("/admin") }} to="/admin">AAAAAAAAAAAAA</Link>
+            <Link onClick={() => { setRoute("/admin") }} to="/admin">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Link>
           </Route>
 
           <Route path="/admin">
@@ -314,7 +311,7 @@ function App(props) {
               blockExplorer={blockExplorer}
             />
             <Contract
-              name="YourToken"
+              name="Token"
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}
