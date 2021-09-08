@@ -120,7 +120,7 @@ function App(props) {
 
       <div className="card bg-dark text-white p-2 border-primary">
         <div className="mx-auto">
-          <div>Your current RDE Balance</div>
+          <div>Your current RDT Balance</div>
           <Balance
             balance={yourTokenBalance}
             fontSize={64}
