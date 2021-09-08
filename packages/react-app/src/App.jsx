@@ -304,8 +304,8 @@ function App(props) {
               </div>
             </div>
             <Link onClick={() => { setRoute("/admin") }} to="/admin">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Link>
-            <div>Created by <a href="https://frenzoid.dev" target="_blank">MrFrenzoid</a>
-              <p>If you like what you see, feel free to donate any KETH you have for spare, it will help me learn more about how to craft cool things like this :) </p>
+            <div>
+              <span>If you like what you see, feel free to donate any KETH you have for spare, it will help me learn more about how to craft cool things like this :) </span>
               <span style={{ color: "magenta" }}>0x7030f4D0dC092449E4868c8DDc9bc00a14C9f561</span>
               <span> or </span>
               <span style={{ color: "cyan" }}> 0x03B4695062564D30F34bD9586fbC3262d1C30565</span>
