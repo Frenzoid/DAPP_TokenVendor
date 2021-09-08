@@ -114,7 +114,7 @@ function App(props) {
           />
         </div>
         <div className="card-header">
-          Transfer tokens
+          Transfer RDT
         </div>
         <div className="card-body">
           <div style={{ padding: 8 }}>
@@ -168,13 +168,13 @@ function App(props) {
                 </div>
                 <div className="card-body">
                   <div style={{ padding: 8 }}>
-                    {tokensPerEth && tokensPerEth.toNumber()} tokens per ETH
+                    {tokensPerEth && tokensPerEth.toNumber()} RDT per ETH
                   </div>
 
                   <div style={{ padding: 8 }}>
                     <Input
                       style={{ textAlign: "center" }}
-                      placeholder={"amount of tokens to buy"}
+                      placeholder={"amount of RDT to buy"}
                       value={tokenBuyAmount}
                       onChange={(e) => { setTokenBuyAmount(e.target.value) }}
                     />
@@ -195,7 +195,7 @@ function App(props) {
 
               <div className="card bg-dark text-white p-3 mx-auto m-2 border-warning">
                 <div style={{ padding: 8, }} className="mx-auto">
-                  <div>Vendor Token Balance:</div>
+                  <div>Vendor RDT Balance:</div>
                   <Balance
                     balance={vendorTokenBalance}
                     fontSize={64}
@@ -206,7 +206,7 @@ function App(props) {
                 </div>
                 <div className="card-body">
                   <div style={{ padding: 8 }}>
-                    {tokensPerEth && tokensPerEth.toNumber()} tokens per ETH
+                    {tokensPerEth && tokensPerEth.toNumber()} RDT per ETH
                   </div>
 
                   <div style={{ padding: 8 }}>
