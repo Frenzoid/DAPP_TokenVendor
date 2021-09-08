@@ -35,11 +35,11 @@ const main = async () => {
 
 
   //If you want to send value to an address from the deployer
-  const deployerWallet = ethers.provider.getSigner()
+  /*const deployerWallet = ethers.provider.getSigner()
   await deployerWallet.sendTransaction({
     to: "0x7030f4D0dC092449E4868c8DDc9bc00a14C9f561",
     value: ethers.utils.parseEther("50")
-  })
+  })*/
 
 
   /*

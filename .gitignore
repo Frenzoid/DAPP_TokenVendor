@@ -23,6 +23,8 @@ coverage
 
 # production
 build
+./packages/hardhat/mnemonic.txt
+./packages/hardhat/0x703*
 
 # misc
 .DS_Store

@@ -16,7 +16,7 @@ import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
-const targetNetwork = NETWORKS['localhost']; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet);
+const targetNetwork = NETWORKS['kovan']; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet);
 const blockExplorer = targetNetwork.blockExplorer;
 const localProviderUrl = targetNetwork.rpcUrl;
 const mainnetProvider = new JsonRpcProvider(MORALIS_ENDPOINT);
@@ -135,7 +135,7 @@ function App(props) {
           </div>
         </div>
         <div className="card-footer">
-          <Button type={"primary"} onClick={() => {
+          <Button type={"primary"} disabled={!web3Modal.cachedProvider ? true : false} onClick={() => {
             tx(writeContracts.Token.transfer(tokenSendToAddress, parseEther("" + tokenSendAmount)))
           }}>Send Tokens</Button>
         </div>
@@ -243,7 +243,12 @@ function App(props) {
                 </div>
               </div>
             </div>
-
+            {
+              web3Modal && web3Modal.cachedProvider ? "" :
+                <div className="mt-3 text-warning mx-auto">
+                  You must <stron className="text-white">connect</stron> before doing any operation.
+                </div>
+            }
             <div className="d-flex flex-wrap flex-row justify-content-around m-3">
               <div style={{ width: 500, margin: "auto", marginTop: 64 }}>
                 <div>RDT Bought:</div>
