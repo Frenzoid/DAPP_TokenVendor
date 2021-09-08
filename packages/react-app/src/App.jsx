@@ -212,7 +212,7 @@ function App(props) {
                   <div style={{ padding: 8 }}>
                     <Input
                       style={{ textAlign: "center" }}
-                      placeholder={"amount of tokens to sell"}
+                      placeholder={"amount of RDT to sell"}
                       value={tokenSellAmount}
                       onChange={(e) => { setTokenSellAmount(e.target.value) }}
                     />
