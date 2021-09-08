@@ -157,18 +157,18 @@ function App(props) {
             <div className="d-flex flex-wrap flex-row justify-content-center mt-4 mb-4">
               <div className="card bg-dark text-white p-3 mx-auto m-2 border border-warning">
                 <div style={{ padding: 8 }} className="mx-auto">
-                  <div>Vendor ETH Balance:</div>
+                  <div>Vendor KETH Balance:</div>
                   <Balance
                     balance={vendorETHBalance}
                     fontSize={64}
-                  /> ETH
+                  /> KETH
                 </div>
                 <div className="card-header">
                   Buy RDT
                 </div>
                 <div className="card-body">
                   <div style={{ padding: 8 }}>
-                    {tokensPerEth && tokensPerEth.toNumber()} RDT per ETH
+                    {tokensPerEth && tokensPerEth.toNumber()} RDT per KETH
                   </div>
 
                   <div style={{ padding: 8 }}>
@@ -206,7 +206,7 @@ function App(props) {
                 </div>
                 <div className="card-body">
                   <div style={{ padding: 8 }}>
-                    {tokensPerEth && tokensPerEth.toNumber()} RDT per ETH
+                    {tokensPerEth && tokensPerEth.toNumber()} RDT per KETH
                   </div>
 
                   <div style={{ padding: 8 }}>

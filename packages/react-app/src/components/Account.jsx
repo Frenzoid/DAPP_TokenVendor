@@ -23,7 +23,7 @@ export default function Account({
         <Button
           key="logoutbutton"
           style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
-          className="btn btn-danger"
+          className="btn btn-primary"
           shape="round"
           size="large"
           onClick={logoutOfWeb3Modal}
