@@ -104,33 +104,41 @@ function App(props) {
   let transferDisplay = ""
   if (yourTokenBalance) {
     transferDisplay = (
-      <div style={{ padding: 8, marginTop: 32, width: 420, margin: "auto" }}>
-        <Card title="Transfer tokens" >
-          <div>
-            <div style={{ padding: 8 }}>
-              <AddressInput
-                ensProvider={mainnetProvider}
-                placeholder="to address"
-                value={tokenSendToAddress}
-                onChange={setTokenSendToAddress}
-              />
-            </div>
-            <div style={{ padding: 8 }}>
-              <Input
-                style={{ textAlign: "center" }}
-                placeholder={"amount of tokens to send"}
-                value={tokenSendAmount}
-                onChange={(e) => { setTokenSendAmount(e.target.value) }}
-              />
-            </div>
+
+      <div className="card bg-dark text-white p-2">
+        <div className="mx-auto">
+          <div>Your current RDE Balance</div>
+          <Balance
+            balance={yourTokenBalance}
+            fontSize={64}
+          />
+        </div>
+        <div className="card-header">
+          Transfer tokens
+        </div>
+        <div className="card-body">
+          <div style={{ padding: 8 }}>
+            <AddressInput
+              ensProvider={mainnetProvider}
+              placeholder="Address to receive."
+              value={tokenSendToAddress}
+              onChange={setTokenSendToAddress}
+            />
           </div>
           <div style={{ padding: 8 }}>
-            <Button type={"primary"} onClick={() => {
-              tx(writeContracts.YourToken.transfer(tokenSendToAddress, parseEther("" + tokenSendAmount)))
-            }}>Send Tokens</Button>
+            <Input
+              style={{ textAlign: "center" }}
+              placeholder={"Amount of RDT to send."}
+              value={tokenSendAmount}
+              onChange={(e) => { setTokenSendAmount(e.target.value) }}
+            />
           </div>
-
-        </Card>
+        </div>
+        <div className="card-footer">
+          <Button type={"primary"} onClick={() => {
+            tx(writeContracts.Token.transfer(tokenSendToAddress, parseEther("" + tokenSendAmount)))
+          }}>Send Tokens</Button>
+        </div>
       </div>
     )
   }
@@ -139,56 +147,24 @@ function App(props) {
     <div className="App container">
 
       <Header />
+
       {networkDisplay}
 
       <BrowserRouter>
 
-        <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/">
-            <Link onClick={() => { setRoute("/") }} to="/">YourToken</Link>
-          </Menu.Item>
-          <Menu.Item key="/admin">
-            <Link onClick={() => { setRoute("/contracts") }} to="/contracts">Debug Contracts</Link>
-          </Menu.Item>
-        </Menu>
-
         <Switch>
+
           <Route exact path="/">
-            <div style={{ padding: 8, marginTop: 32, width: 300, margin: "auto" }}>
-              <Card title="Your Tokens" extra={<a href="#">code</a>} >
-                <div style={{ padding: 8 }}>
-                  <Balance
-                    balance={yourTokenBalance}
-                    fontSize={64}
-                  />
-                </div>
-              </Card>
-            </div>
-            {transferDisplay}
 
-            <Divider />
-
-
-            <div className="d-flex flex-row justify-content-center">
-
-              <div style={{ padding: 8 }} className="mx-auto">
-                <div>Vendor ETH Balance:</div>
-                <Balance
-                  balance={vendorETHBalance}
-                  fontSize={64}
-                /> ETH
-              </div>
-              <div style={{ padding: 8, }} className="mx-auto">
-                <div>Vendor Token Balance:</div>
-                <Balance
-                  balance={vendorTokenBalance}
-                  fontSize={64}
-                />
-              </div>
-            </div>
-
-            <div className="d-flex flex-row justify-content-center m-3">
+            <div className="d-flex flex-wrap flex-row justify-content-center m-3">
               <div className="card bg-dark text-white p-3 mx-auto m-2">
+                <div style={{ padding: 8 }} className="mx-auto">
+                  <div>Vendor ETH Balance:</div>
+                  <Balance
+                    balance={vendorETHBalance}
+                    fontSize={64}
+                  /> ETH
+                </div>
                 <div className="card-header">
                   Buy RDT
                 </div>
@@ -217,7 +193,16 @@ function App(props) {
                 </div>
               </div>
 
+              {transferDisplay}
+
               <div className="card bg-dark text-white p-3 mx-auto m-2">
+                <div style={{ padding: 8, }} className="mx-auto">
+                  <div>Vendor Token Balance:</div>
+                  <Balance
+                    balance={vendorTokenBalance}
+                    fontSize={64}
+                  />
+                </div>
                 <div className="card-header">
                   Sell RDT
                 </div>
@@ -237,7 +222,6 @@ function App(props) {
                 </div>
                 <div className="card-footer">
                   {
-
                     (allowance && !allowance.isZero()) ?
 
                       <Button type={"primary"} loading={selling} onClick={async () => {
@@ -252,7 +236,7 @@ function App(props) {
 
                       <Button type={"primary"} loading={approving} onClick={async () => {
                         setApproving(true)
-                        await tx(writeContracts.Token.approve(vendorAddress, parseEther(tokenSellAmount * tokensPerEth)))
+                        await tx(writeContracts.Token.approve(vendorAddress, parseEther((tokenSellAmount * tokensPerEth).toString())))
                         setApproving(false)
                       }}>
                         Approve
@@ -263,7 +247,7 @@ function App(props) {
 
             </div>
 
-            <div className="d-flex flex-row justify-content-around m-3">
+            <div className="d-flex flex-wrap flex-row justify-content-around m-3">
               <div style={{ width: 500, margin: "auto", marginTop: 64 }}>
                 <div>RDT Bought:</div>
                 <List
@@ -317,6 +301,7 @@ function App(props) {
                 />
               </div>
             </div>
+            <Link onClick={() => { setRoute("/admin") }} to="/admin">AAAAAAAAAAAAA</Link>
           </Route>
 
           <Route path="/admin">

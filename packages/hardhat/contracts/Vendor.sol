@@ -68,7 +68,7 @@ contract Vendor is Ownable {
     // - Admin functions.
     // Emergency withdraw.
     function withdrawEth(address _to) external onlyOwner {
-        // If _to is empty, set reciever as sender.
+        // If _to is empty, set receiver as sender.
         if (address(_to) == address(0)) _to = msg.sender;
 
         // Send eth to admin's address.
@@ -78,7 +78,7 @@ contract Vendor is Ownable {
 
     // Emergency withdraw.
     function withdrawTokens(address _to) external onlyOwner {
-        // If _to is empty, set reciever as sender.
+        // If _to is empty, set receiver as sender.
         if (address(_to) == address(0)) _to = msg.sender;
 
         // Transfer tokens.
