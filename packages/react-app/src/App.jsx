@@ -1,3 +1,4 @@
+// Imports.
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
@@ -12,10 +13,12 @@ import { formatEther, parseEther } from "@ethersproject/units";
 import { Hints, ExampleUI, Subgraph } from "./views"
 import { INFURA_ID, MORALIS_ENDPOINT, DAI_ADDRESS, DAI_ABI, NETWORK, NETWORKS } from "./constants";
 
+// CSS.
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
+// Connection.
 const targetNetwork = NETWORKS['kovan']; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet);
 const blockExplorer = targetNetwork.blockExplorer;
 const localProviderUrl = targetNetwork.rpcUrl;
@@ -26,6 +29,7 @@ const localProvider = new JsonRpcProvider(localProviderUrlFromEnv);
 
 function App(props) {
 
+  // State vars
   const [injectedProvider, setInjectedProvider] = useState();
   const [tokenSendToAddress, setTokenSendToAddress] = useState();
   const [tokenSendAmount, setTokenSendAmount] = useState();
@@ -36,18 +40,25 @@ function App(props) {
   const [approving, setApproving] = useState()
   const [route, setRoute] = useState();
 
+
+  // External compound
   const gasPrice = useGasPrice(targetNetwork, "fast");
   const userProvider = useUserProvider(injectedProvider, localProvider);
   const address = useUserAddress(userProvider);
 
+
+  // Chains
   let localChainId = localProvider && localProvider._network && localProvider._network.chainId;
   let selectedChainId = userProvider && userProvider._network && userProvider._network.chainId;
 
-  const tx = Transactor(userProvider, gasPrice);
 
+  // Transactors.
+  const tx = Transactor(userProvider, gasPrice);
   const readContracts = useContractLoader(localProvider);
   const writeContracts = useContractLoader(userProvider);
 
+
+  // Contracts methods and attributes.
   const vendorAddress = readContracts && readContracts.Vendor && readContracts.Vendor.address
   const vendorETHBalance = useBalance(localProvider, vendorAddress);
   const allowance = useContractReader(readContracts, "Token", "allowance", [address, vendorAddress])
@@ -57,10 +68,11 @@ function App(props) {
   const buyTokensEvents = useEventListener(readContracts, "Vendor", "BuyTokens", localProvider, 1);
   const sellTokensEvents = useEventListener(readContracts, "Vendor", "SellTokens", localProvider, 1);
 
+  // Custom.
   const ethCostToPurchaseTokens = tokenBuyAmount && tokensPerEth && parseEther("" + (tokenBuyAmount / parseFloat(tokensPerEth)));
 
 
-
+  // Web3 Modal.
   const loadWeb3Modal = useCallback(async () => {
     const provider = await web3Modal.connect();
     setInjectedProvider(new Web3Provider(provider));
@@ -77,6 +89,7 @@ function App(props) {
   }, [setRoute]);
 
 
+  // Light "components".
   let networkDisplay = ""
   if (localChainId && selectedChainId && localChainId != selectedChainId) {
     networkDisplay = (
@@ -143,6 +156,7 @@ function App(props) {
     )
   }
 
+  // Main app render.
   return (
     <div className="App container">
 
@@ -351,9 +365,7 @@ function App(props) {
 }
 
 
-/*
-  Web3 modal helps us "connect" external wallets:
-*/
+// Web3 modals helps us "connect" external wallets:
 const web3Modal = new Web3Modal({
   // network: "mainnet", // optional
   cacheProvider: true, // optional
@@ -374,6 +386,7 @@ const logoutOfWeb3Modal = async () => {
   }, 1);
 };
 
+// Reload on chain changed.
 window.ethereum && window.ethereum.on('chainChanged', chainId => {
   setTimeout(() => {
     window.location.reload();
