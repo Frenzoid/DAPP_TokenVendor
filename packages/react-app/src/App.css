@@ -24,7 +24,7 @@ a {
 }
 
 .list{
-  height: 390px; 
+  height: 285px; 
   overflow: hidden; 
   overflow-y: scroll;
 }

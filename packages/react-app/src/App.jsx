@@ -154,7 +154,7 @@ function App(props) {
         <Switch>
           <Route exact path="/">
 
-            <div className="d-flex flex-wrap flex-row justify-content-center m-5">
+            <div className="d-flex flex-wrap flex-row justify-content-center mt-4 mb-4">
               <div className="card bg-dark text-white p-3 mx-auto m-2 border border-warning">
                 <div style={{ padding: 8 }} className="mx-auto">
                   <div>Vendor ETH Balance:</div>
@@ -249,8 +249,8 @@ function App(props) {
                   You must <stron className="text-white">connect</stron> before doing any operation.
                 </div>
             }
-            <div className="d-flex flex-wrap flex-row justify-content-around m-3">
-              <div style={{ width: 500, margin: "auto", marginTop: 64 }}>
+            <div className="d-flex flex-wrap flex-row justify-content-around mx-3">
+              <div style={{ width: 500, margin: "auto" }}>
                 <div>RDT Bought:</div>
                 <List
                   className="list"
@@ -276,7 +276,7 @@ function App(props) {
                   }}
                 />
               </div>
-              <div style={{ width: 500, margin: "auto", marginTop: 64 }}>
+              <div style={{ width: 500, margin: "auto" }}>
                 <div>RDT Sold:</div>
                 <List
                   className="list"
@@ -304,6 +304,12 @@ function App(props) {
               </div>
             </div>
             <Link onClick={() => { setRoute("/admin") }} to="/admin">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Link>
+            <div>Created by <a href="https://frenzoid.dev" target="_blank">MrFrenzoid</a>
+              <p>If you like what you see, feel free to donate any KETH you have for spare, it will help me learn more about how to craft cool things like this :) </p>
+              <span style={{ color: "magenta" }}>0x7030f4D0dC092449E4868c8DDc9bc00a14C9f561</span>
+              <span> or </span>
+              <span style={{ color: "cyan" }}> 0x03B4695062564D30F34bD9586fbC3262d1C30565</span>
+            </div>
           </Route>
 
           <Route path="/admin">
