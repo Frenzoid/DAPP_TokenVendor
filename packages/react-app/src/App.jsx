@@ -236,7 +236,7 @@ function App(props) {
                   {
                     (allowance && !allowance.isZero()) ?
 
-                      <Button type={"primary"} disabled={!web3Modal.cachedProvider ? true : false} loading={selling} onClick={async () => {
+                      <Button type={"primary"} disabled={!web3Modal.cachedProvider ? true : false} loading={selling} style={{ backgroundColor: "green", borderColor: "green" }} onClick={async () => {
                         setSelling(true)
                         await tx(writeContracts.Vendor.sellTokens(parseEther(tokenSellAmount)))
                         setSelling(false)
@@ -248,7 +248,7 @@ function App(props) {
 
                       <Button type={"primary"} disabled={!web3Modal.cachedProvider ? true : false} loading={approving} onClick={async () => {
                         setApproving(true)
-                        await tx(writeContracts.Token.approve(vendorAddress, parseEther((tokenSellAmount * tokensPerEth).toString())))
+                        await tx(writeContracts.Token.approve(vendorAddress, (1000 * 10 ^ 18).toString()))
                         setApproving(false)
                       }}>
                         Approve

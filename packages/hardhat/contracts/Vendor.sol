@@ -5,14 +5,20 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Token.sol";
 
 contract Vendor is Ownable {
-    // - Atributes.
+    /**
+     * @author MrFrenzoid
+     * @title Raven Dynamics Token Exchange Vendor Contract.
+     * @notice A contract that sells and buys RDT in exchange of ETH.
+     */
+
+    /// - Atributes.
     // Token contract addr.
     Token token;
 
     // Token x Eth conversion price.
     uint256 public tokensPerEth;
 
-    // - Events.
+    /// - Events.
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
     event SellTokens(
         address seller,
@@ -20,14 +26,20 @@ contract Vendor is Ownable {
         uint256 amountOfTokens
     );
 
-    // - Constructor.
+    /**
+     * @notice Constructor of the contract.
+     * @param tokenAddress Address of the token contract.
+     */
+    /// - Constructor.
     constructor(address tokenAddress) public {
         token = Token(tokenAddress);
         tokensPerEth = 1000;
     }
 
-    // - Public Functions.
-    // Buy tokens.
+    /// - Public Functions.
+    /**
+     * @notice Buy tokens.
+     */
     function buyTokens() external payable {
         // We check if the sender sent some eth.
         require(msg.value > 0, "RDT-Vendor: You didn't send any eth!.");
@@ -47,7 +59,9 @@ contract Vendor is Ownable {
         emit BuyTokens(msg.sender, msg.value, msg.value * tokensPerEth);
     }
 
-    // Sell tokens.
+    /**
+     * @notice Sell tokens.
+     */
     function sellTokens(uint256 _tokens) external {
         // Check if _tokens is 0 or negative.
         require(_tokens > 0, "RDT-Vendor: You need to sell at least 1 token");
@@ -59,7 +73,10 @@ contract Vendor is Ownable {
         uint256 amountEth = _tokens / tokensPerEth;
 
         // check if we have enough tokens (we should, but "things happen").
-        require(amountEth <= address(this).balance, "RDT-Vendor: We dont have enough ETH for your tokens. Please, contact an Admin");
+        require(
+            amountEth <= address(this).balance,
+            "RDT-Vendor: We dont have enough ETH for your tokens. Please, contact an Admin"
+        );
 
         // Transfer the eth.
         (bool success, ) = msg.sender.call{value: amountEth}("");
@@ -68,8 +85,11 @@ contract Vendor is Ownable {
         emit SellTokens(msg.sender, amountEth, _tokens);
     }
 
-    // - Admin functions.
-    // Emergency withdraw.
+    /// - Admin functions.
+    /**
+     * @notice Emergency withdrawal ETH.
+     * @param _to Address to send the ETH to.
+     */
     function withdrawEth(address _to) external onlyOwner {
         // If _to is empty, set receiver as sender.
         if (address(_to) == address(0)) _to = msg.sender;
@@ -79,12 +99,24 @@ contract Vendor is Ownable {
         require(success, "RDT-Vendor: CRITICAL: withdrawEth transfer failed.");
     }
 
-    // Emergency withdraw.
+    /**
+     * @notice Emergency withdrawal RDT.
+     * @param _to Address to send the RDT to.
+     */
     function withdrawTokens(address _to) external onlyOwner {
         // If _to is empty, set receiver as sender.
         if (address(_to) == address(0)) _to = msg.sender;
 
         // Transfer tokens.
         token.transfer(msg.sender, token.balanceOf(address(this)));
+    }
+
+    /// - Fallback & receive
+    fallback() external payable {
+        revert();
+    }
+
+    receive() external payable {
+        revert();
     }
 }
